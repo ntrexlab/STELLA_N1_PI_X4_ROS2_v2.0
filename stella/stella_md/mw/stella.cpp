@@ -1,7 +1,7 @@
 #include "MW_value.hpp"
 #include "MW_serial.hpp"
 
-struct Motor_Configuration_value stella;
+struct Motor_Configuration_value stella_n1;
 struct Differential_Mobile_Robot_value Differential_MobileRobot_SetValue;
 
 int stella_setting(int select);
@@ -11,35 +11,35 @@ int Differential_MobileRobot_setting_check();
 
 int stella_setting_check(int channel)
 {
-    if (stella.encoder_ppr[channel] != MyMotorConfiguration.encoder_ppr[channel])
+    if (stella_n1.encoder_ppr[channel] != MyMotorConfiguration.encoder_ppr[channel])
         return 0;
-    if (stella.Max_voltage[channel] != MyMotorConfiguration.Max_voltage[channel])
+    if (stella_n1.Max_voltage[channel] != MyMotorConfiguration.Max_voltage[channel])
         return 0;
-    if (stella.Max_current[channel] != MyMotorConfiguration.Max_current[channel])
-        return 0;
-
-    if (stella.Max_velocity[channel] != MyMotorConfiguration.Max_velocity[channel])
-        return 0;
-    if (stella.Max_velocity[channel] != MyMotorConfiguration.Max_velocity[channel])
-        return 0;
-    if (stella.Acceleration[channel] != MyMotorConfiguration.Acceleration[channel])
-        return 0;
-    if (stella.Deceleration[channel] != MyMotorConfiguration.Deceleration[channel])
+    if (stella_n1.Max_current[channel] != MyMotorConfiguration.Max_current[channel])
         return 0;
 
-    if (stella.overvoltage_limit[channel] != MyMotorConfiguration.overvoltage_limit[channel])
+    if (stella_n1.Max_velocity[channel] != MyMotorConfiguration.Max_velocity[channel])
         return 0;
-    if (stella.undervoltage_limit[channel] != MyMotorConfiguration.undervoltage_limit[channel])
+    if (stella_n1.Max_velocity[channel] != MyMotorConfiguration.Max_velocity[channel])
         return 0;
-    if (stella.overcurrent_limit[channel] != MyMotorConfiguration.overcurrent_limit[channel])
+    if (stella_n1.Acceleration[channel] != MyMotorConfiguration.Acceleration[channel])
+        return 0;
+    if (stella_n1.Deceleration[channel] != MyMotorConfiguration.Deceleration[channel])
         return 0;
 
-    if (stella.direction[channel] != MyMotorConfiguration.direction[channel])
+    if (stella_n1.overvoltage_limit[channel] != MyMotorConfiguration.overvoltage_limit[channel])
+        return 0;
+    if (stella_n1.undervoltage_limit[channel] != MyMotorConfiguration.undervoltage_limit[channel])
+        return 0;
+    if (stella_n1.overcurrent_limit[channel] != MyMotorConfiguration.overcurrent_limit[channel])
         return 0;
 
-    if (stella.velocity_p_gain[channel] != MyMotorConfiguration.velocity_p_gain[channel])
+    if (stella_n1.direction[channel] != MyMotorConfiguration.direction[channel])
         return 0;
-    if (stella.velocity_i_gain[channel] != MyMotorConfiguration.velocity_i_gain[channel])
+
+    if (stella_n1.velocity_p_gain[channel] != MyMotorConfiguration.velocity_p_gain[channel])
+        return 0;
+    if (stella_n1.velocity_i_gain[channel] != MyMotorConfiguration.velocity_i_gain[channel])
         return 0;
 
     return 1;
@@ -60,107 +60,57 @@ int stella_setting(int select)
 {
     switch (select)
     {
-        case 0:
-            // 모터사양 참고
-            stella.encoder_ppr[channel_1] = 2000;
-            stella.encoder_ppr[channel_2] = 2000;
-    
-            stella.Max_voltage[channel_1] = 20.0;
-            stella.Max_voltage[channel_2] = 20.0;
-    
-            stella.Max_current[channel_1] = 2.0;
-            stella.Max_current[channel_2] = 2.0;
-    
-            stella.Max_velocity[channel_1] = 3000;
-            stella.Max_velocity[channel_2] = 3000;
-    
-            stella.Acceleration[channel_1] = 3000;
-            stella.Acceleration[channel_2] = 3000;
-    
-            stella.Deceleration[channel_1] = 3000;
-            stella.Deceleration[channel_2] = 3000;
-    
-            // 제어기 안전
-            stella.overvoltage_limit[channel_1] = 30.0;
-            stella.overvoltage_limit[channel_2] = 30.0;
-    
-            stella.undervoltage_limit[channel_1] = 7.0;
-            stella.undervoltage_limit[channel_2] = 7.0;
-    
-            stella.overcurrent_limit[channel_1] = 3.0;
-            stella.overcurrent_limit[channel_2] = 3.0;
-    
-            // 하드웨어 참고
-            stella.direction[channel_1] =Reverse_Direction;
-            stella.direction[channel_2] =Not_Change;
-    
-            stella.velocity_p_gain[channel_1] = 1.3;
-            stella.velocity_p_gain[channel_2] = 1.3;
-    
-            stella.velocity_i_gain[channel_1] = 0.002;
-            stella.velocity_i_gain[channel_2] = 0.002;
-    
-            // 로봇 기구학 셋팅
-            Differential_MobileRobot_SetValue.axle_length   = 0.33;            // 바퀴간 거리             (m)        
-            Differential_MobileRobot_SetValue.wheel_radius  = 0.0875;           // 바퀴 반지름             (m)        
-            Differential_MobileRobot_SetValue.gear_ratio    = 27;        // 모터회전수 / 바퀴회전수   (감속비율) 
-          break;
-          
-          case 1:
-            // 모터사양 참고
-            stella.encoder_ppr[channel_1] = 2000;
-            stella.encoder_ppr[channel_2] = 2000;
-    
-            stella.Max_voltage[channel_1] = 12.0;
-            stella.Max_voltage[channel_2] = 12.0;
-    
-            stella.Max_current[channel_1] = 2.3;
-            stella.Max_current[channel_2] = 2.3;
-    
-            stella.Max_velocity[channel_1] = 20000;
-            stella.Max_velocity[channel_2] = 20000;
-    
-            stella.Acceleration[channel_1] = 20000;
-            stella.Acceleration[channel_2] = 20000;
-    
-            stella.Deceleration[channel_1] = 20000;
-            stella.Deceleration[channel_2] = 20000;
-    
-            // 제어기 안전
-            stella.overvoltage_limit[channel_1] = 30.0;
-            stella.overvoltage_limit[channel_2] = 30.0;
-    
-            stella.undervoltage_limit[channel_1] = 9.0;
-            stella.undervoltage_limit[channel_2] = 9.0;
-    
-            stella.overcurrent_limit[channel_1] = 3.0;
-            stella.overcurrent_limit[channel_2] = 3.0;
-    
-            // 하드웨어 참고
-    
-            stella.direction[channel_1] = Not_Change;
-            stella.direction[channel_2] = Reverse_Direction;
-    
-    
-            stella.velocity_p_gain[channel_1] = 0.6;
-            stella.velocity_p_gain[channel_2] = 0.6;
-    
-            stella.velocity_i_gain[channel_1] = 0.0001;
-            stella.velocity_i_gain[channel_2] = 0.0001;
-    
-            // 로봇 기구학 셋팅
-            Differential_MobileRobot_SetValue.axle_length   = 0.18064;            // 바퀴간 거리             (m)        
-            Differential_MobileRobot_SetValue.wheel_radius  = 0.03355;           // 바퀴 반지름             (m)        
-            Differential_MobileRobot_SetValue.gear_ratio    = 30;              // 모터회전수 / 바퀴회전수   (감속비율) 
-            break;
-           
-        }
-    
-       // 적용
-        Set_MotorConfiguration(channel_1, &stella);
-        Set_MotorConfiguration(channel_2, &stella);
+    case 0:
+        // 모터사양 참고
+        stella_n1.encoder_ppr[channel_1] = 2000;
+        stella_n1.encoder_ppr[channel_2] = 2000;
+
+        stella_n1.Max_voltage[channel_1] = 20.0;
+        stella_n1.Max_voltage[channel_2] = 20.0;
+
+        stella_n1.Max_current[channel_1] = 2.0;
+        stella_n1.Max_current[channel_2] = 2.0;
+
+        stella_n1.Max_velocity[channel_1] = 3000;
+        stella_n1.Max_velocity[channel_2] = 3000;
+
+        stella_n1.Acceleration[channel_1] = 3000;
+        stella_n1.Acceleration[channel_2] = 3000;
+
+        stella_n1.Deceleration[channel_1] = 3000;
+        stella_n1.Deceleration[channel_2] = 3000;
+
+        // 제어기 안전
+        stella_n1.overvoltage_limit[channel_1] = 30.0;
+        stella_n1.overvoltage_limit[channel_2] = 30.0;
+
+        stella_n1.undervoltage_limit[channel_1] = 7.0;
+        stella_n1.undervoltage_limit[channel_2] = 7.0;
+
+        stella_n1.overcurrent_limit[channel_1] = 3.0;
+        stella_n1.overcurrent_limit[channel_2] = 3.0;
+
+        // 하드웨어 참고
+        stella_n1.direction[channel_1] =Reverse_Direction;
+        stella_n1.direction[channel_2] =Not_Change;
+
+        stella_n1.velocity_p_gain[channel_1] = 1.3;
+        stella_n1.velocity_p_gain[channel_2] = 1.3;
+
+        stella_n1.velocity_i_gain[channel_1] = 0.002;
+        stella_n1.velocity_i_gain[channel_2] = 0.002;
+
+        // 로봇 기구학 셋팅
+        Differential_MobileRobot_SetValue.axle_length   = 0.33;            // 바퀴간 거리             (m)        
+        Differential_MobileRobot_SetValue.wheel_radius  = 0.0875;           // 바퀴 반지름             (m)        
+        Differential_MobileRobot_SetValue.gear_ratio    = 27;        // 모터회전수 / 바퀴회전수   (감속비율) 
+
+        // 적용
+        Set_MotorConfiguration(channel_1, &stella_n1);
+        Set_MotorConfiguration(channel_2, &stella_n1);
 
         Set_Differential_MobileRobot_value(&Differential_MobileRobot_SetValue);
+    }
 
     return 1;
 }
